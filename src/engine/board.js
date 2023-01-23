@@ -32,11 +32,13 @@ export default class Board {
                 }
             }
         }
-        throw new Error('The supplied piece is not on the board');
+        //throw new Error('The supplied piece is not on the board');
+        return null;
     }
 
     movePiece(fromSquare, toSquare) {
-        const movingPiece = this.getPiece(fromSquare);        
+        const movingPiece = this.getPiece(fromSquare);   
+        //'!!' checks here that movingPiece is not set to 'undefined'     
         if (!!movingPiece && movingPiece.player === this.currentPlayer) {
             this.setPiece(toSquare, movingPiece);
             this.setPiece(fromSquare, undefined);
