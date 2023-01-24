@@ -2,6 +2,7 @@ import Piece from './piece';
 import Square from '../square';
 import Player from '../player';
 import Board from '../board';
+import King from './king';
 
 export default class Bishop extends Piece {
     constructor(player) {
@@ -17,10 +18,12 @@ export default class Bishop extends Piece {
 
     }
 
+
     canPieceBeTaken(board, row, col) {
         //this should be optimised to handle cases where there is no piece inputted i.e. the square is empty
-        let ourPiece = board.getPiece(Square.at(row, col));
-        if (ourPiece.player == this.player) {
+        let opposingKing = new King(Player.WHITE)
+        let pieceToCheck = board.getPiece(Square.at(row, col));
+        if (pieceToCheck.player == this.player || pieceToCheck instanceof King) {
             return false };
         return true;
 
