@@ -9,6 +9,7 @@ export default class Bishop extends Piece {
         super(player);
     }
 
+    // This function checks whether there is a piece on the board
     checkForPiece(board, row, col) {
         if (board.getPiece(Square.at(row, col)) === undefined) {
             return false
@@ -17,6 +18,7 @@ export default class Bishop extends Piece {
         }
     }
 
+    // This function checks whether a piece can be taken
     canPieceBeTaken(board, row, col) {
         let pieceToCheck = board.getPiece(Square.at(row, col));
         if (pieceToCheck.player == this.player || pieceToCheck instanceof King) {
@@ -40,7 +42,7 @@ export default class Bishop extends Piece {
 
          // four directions
         for (let i = 1; i < 8; i++) {
-            
+
             //forward right
             if (x + i < 8 && y + i < 8 && !forwardRightBlocked) {
                 moves.push(Square.at(x + i, y + i));

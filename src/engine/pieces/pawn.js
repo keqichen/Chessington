@@ -8,6 +8,7 @@ export default class Pawn extends Piece {
         super(player);
     }
     
+    // This function checks whether there is a piece on the board
     checkForPiece (board, row,col){
         if (board.getPiece(Square.at(row,col)) === undefined) {
             return false;
