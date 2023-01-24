@@ -12,43 +12,62 @@ export default class Pawn extends Piece {
         let location = board.findPiece(this)
 
         //find whether there is a blocking piece in front of the current pawn.
-        let blockingPiece = board.findPiece(location.row+1,location.col);
-        let blockingPieceBlack = board.findPiece(location.row -1, location.col)
-      
+        console.log(location);
+        let ourSquare = Square.at(4,3);
+        console.log(ourSquare);
+        console.log(board.getPiece(Square.at(4,3)));
+        console.log(Square.at(6,3));
+
+        let testBlockerPiece = board.getPiece(Square.at(0,1));
+        if (typeof testBlockerPiece == "undefined") console.log("We have got testBlockerPiece's undefined status")
+
+        //tr with getPiece instead; using this.board to enter coordinates?
+        let blockingPieceOne = board.getPiece(Square.at(location.row+1,location.col));
+        let blockingPieceTwo = board.getPiece(Square.at(location.row+2,location.col));
+        let blockingPieceBlackOne = board.getPiece(Square.at(location.row -1, location.col));
+        let blockingPieceBlackTwo = board.getPiece(Square.at(location.row -2, location.col))
         
         //moves holds an array of all possible coordinates the piece can move to - which are pushed from below. For pieces this array will be longer
         //for loops would be better to generate all possible moves
         // deal with all possible moving first? Or think about how a 'checkMove' function might stop pieces from going to taken squares (or not moving beyond them)!
         const moves = []
+        console.log(blockingPieceOne);
+        console.log(blockingPieceTwo);
+        console.log(blockingPieceBlackOne);
+        console.log(blockingPieceBlackTwo);
         if (this.player === Player.WHITE) {
-            if (location.row === 1 && blockingPiece==null) {
-                moves.push(Square.at(location.row + 2, location.col))
-            } else if (location.row === 1 && blockingPiece==null){
-             //this and the two lines above have identical conditions;
-             //we also need to deal with the situation where a pawn on row === 1 is blocked by a piece two steps in front; 
-             //as these are else ifs, they will only add a single move. But from row===1, the pawn should usually have two possible moves added
-
-                moves.push("");
-            } else if (location.row !== 1 && blockingPiece==null){
+            if (location.row === 1 && blockingPieceOne==null && blockingPieceTwo == null) {
                 moves.push(Square.at(location.row + 1, location.col))
-            } else {
-                moves.push("");
-            }
-            
+                moves.push(Square.at(location.row + 2, location.col))
+            } else if (location.row === 1 && blockingPieceOne==null && blockingPieceTwo !== null) {
+                moves.push(Square.at(location.row + 1, location.col))
+            } else if (location.row !== 1 && blockingPieceOne==null){
+                moves.push(Square.at(location.row + 1, location.col))
+            } 
+            //else {
+            // moves.push("");
+                    
+            // }
             //below for if this.player === player.BLACK
             // do the same thing; add the blockingPiece;
-        } else {
-            if (location.row === 6 && blockingPiece==null) {
-                moves.push(Square.at(location.row - 2, location.col))
-            } else if (location.row === 6 && blockingPiece==null){
-                moves.push("");
-            } else if (location.row !== 6 && blockingPiece==null){
+        } 
+            else {
+            if (location.row === 6 && blockingPieceBlackOne!==null && blockingPieceBlackTwo==null) {
                 moves.push(Square.at(location.row - 1, location.col))
-            } else {
-                moves.push("");
-            }
+                moves.push(Square.at(location.row - 2, location.col))
+            } else if (location.row === 6 && blockingPieceBlackOne==null && blockingPieceTwo != null) {
+                moves.push(Square.at(location.row - 1, location.col))
+            } else if (location.row !== 6 && blockingPieceBlackOne==null){
+                moves.push(Square.at(location.row - 1, location.col))
+                }
             
-        }
+         }
+            // } else {
+            //     // moves.push("");
+                
+            // }
+            
+    
         return moves;
     }
 }
