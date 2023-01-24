@@ -21,7 +21,8 @@ export default class Board {
     }
 
     getPiece(square) {
-        return this.board[square.row][square.col];
+ 
+            return this.board[square.row][square.col];
     }
 
     findPiece(pieceToFind) {
@@ -37,7 +38,7 @@ export default class Board {
     }
 
     movePiece(fromSquare, toSquare) {
-        const movingPiece = this.getPiece(fromSquare);   
+        const movingPiece = this.getPiece(fromSquare);
         //'!!' checks here that movingPiece is not set to 'undefined'     
         if (!!movingPiece && movingPiece.player === this.currentPlayer) {
             this.setPiece(toSquare, movingPiece);

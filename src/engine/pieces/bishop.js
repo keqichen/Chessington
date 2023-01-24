@@ -25,16 +25,16 @@ export default class Bishop extends Piece {
             if (x+i<8 && y+i<8){
                 moves.push(Square.at(x+i, y+i));
             }
-            //forward left
-            if (x+i<8 && y-i<8 && y-i>0){ 
+            //forward left; off-by-one error befoe: should be equal to or less than for 0 values as the '0'th index is a legit square
+            if (x+i<8 && y-i<8 && y-i>=0){ 
                 moves.push(Square.at(x+i, y-i));
             }
             //backward right
-            if (x-i>0 && x-i<8 && y+i<8){
+            if (x-i>=0 && x-i<8 && y+i<8){
                 moves.push(Square.at(x-i, y+i));
             }
             //backward left
-            if (0<x-i<8 && y-i<8 && y-i > 0){
+            if (x-i>=0 && y-i<8 && y-i >= 0){
                 moves.push(Square.at(x-i, y-i));
             }
         }
