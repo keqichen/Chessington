@@ -21,16 +21,16 @@ export default class Pawn extends Piece {
 
   
         //find whether there is a blocking piece in front of the current pawn.
-        console.log(location);
-        let ourSquare = Square.at(4,3);
-        console.log(ourSquare);
-        console.log(board.getPiece(Square.at(4,3)));
-        console.log(Square.at(6,3));
+        // console.log(location);
+         let ourSquare = Square.at(4,3);
+        // console.log(ourSquare);
+        // console.log(board.getPiece(Square.at(4,3)));
+        // console.log(Square.at(6,3));
 
         const moves = []
         
         if (this.player === Player.WHITE) {
-            if (location.row === 1 && !this.checkForPiece(board,location.row+1,location.col) && !this.checkForPiece(boardlocation.row+2,location.col)) {
+            if (location.row === 1 && !this.checkForPiece(board,location.row+1,location.col) && !this.checkForPiece(board,location.row+2,location.col)) {
                 moves.push(Square.at(location.row + 2, location.col))
             } 
             if (!this.checkForPiece(board,location.row+1,location.col)) {
@@ -52,7 +52,7 @@ export default class Pawn extends Piece {
             {
                 moves.push(Square.at(location.row - 2, location.col))
             } 
-            if (this.checkForPiece(board,location.row -1, location.col)) {
+            if (!this.checkForPiece(board,location.row -1, location.col)) {
                 moves.push(Square.at(location.row - 1, location.col))
             } 
             
