@@ -1,4 +1,9 @@
+
 import Piece from './piece';
+import Square from '../square';
+import Player from '../player';
+import Board from '../board';
+import King from './king';
 
 export default class Knight extends Piece {
     constructor(player) {
@@ -6,36 +11,31 @@ export default class Knight extends Piece {
     }
 
     getAvailableMoves(board) {
+        let location = board.findPiece(this);
         let moves=[];
 
-        // 8 directions
-        for (let i = 1; i < 8; i++) {
-            //forward right
-            if (x + i+1 < 8 && y + i < 8 && !forwardRightBlocked) {
-                moves.push(Square.at(x + i+1, y + i));
-                if (this.checkForPiece(board, x + i, y + i)) {
-                    forwardRightBlocked = true;
-                    if (!this.canPieceBeTaken(board, x + i, y + i)) {
-                        moves.pop();
-                    }
-                }
-            }
-            //forward left; off-by-one error befoe: should be equal to or less than for 0 values as the '0'th index is a legit square
-            if (x + i < 8 && y - i < 8 && y - i >= 0) {
-                moves.push(Square.at(x + i, y - i));
-                if (this.checkForPiece(board, x + i, y - i)) forwardLeftBlocked = true;
-            }
-            //backward right
-            if (x - i >= 0 && x - i < 8 && y + i < 8) {
-                moves.push(Square.at(x - i, y + i));
-                if (this.checkForPiece(board, x - i, y + i)) backwardRightBlocked = true;
-            }
-            //backward left
-            if (x - i >= 0 && y - i < 8 && y - i >= 0) {
-                moves.push(Square.at(x - i, y - i));
-                if (this.checkForPiece(board, x - i, y - i)) backwardLeftBlocked = true;
-            }
+        function checkPieceOnboard(row,col){
+            if (row<8 && row >=0 && col < 8 && col >= 0){
+                moves.push(Square.at(row,col))
+            } 
         }
+
+        let x = location.row;
+        let y = location.col;
+        
+        checkPieceOnboard(x+2,y+1);
+        checkPieceOnboard(x+2,y-1);
+        checkPieceOnboard(x-2,y+1);
+        checkPieceOnboard(x-2,y-1);
+        checkPieceOnboard(x+1,y+2);
+        checkPieceOnboard(x-1,y+2);
+        checkPieceOnboard(x+1,y-2);
+        checkPieceOnboard(x-1,y-2);
+        
+
         return moves;
+        
+        }
+        
     }
-}
+
