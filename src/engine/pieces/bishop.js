@@ -17,9 +17,7 @@ export default class Bishop extends Piece {
         }
     }
 
-
     canPieceBeTaken(board, row, col) {
-        //this should be optimised to handle cases where there is no piece inputted i.e. the square is empty
         let pieceToCheck = board.getPiece(Square.at(row, col));
         if (pieceToCheck.player == this.player || pieceToCheck instanceof King) {
             return false };
@@ -27,18 +25,10 @@ export default class Bishop extends Piece {
 
     }
 
-    //Can we simplify these for loops into just one or two loops?
-    //We need to remove the square that the bishop is on. We can copy the way I did this with the rook; or we can look for this built-in function that franc used
-
     getAvailableMoves(board) {
         let location = board.findPiece(this)
         const moves = []
-        // four directions
-        // Track 
 
-        //our piece at (4,4)
-        //blocking piece at (6,6)
-        //we can't move to (7,7)
 
         let x = location.row;
         let y = location.col;
@@ -48,7 +38,9 @@ export default class Bishop extends Piece {
         let backwardRightBlocked = false;
         let backwardLeftBlocked = false;
 
+         // four directions
         for (let i = 1; i < 8; i++) {
+            
             //forward right
             if (x + i < 8 && y + i < 8 && !forwardRightBlocked) {
                 moves.push(Square.at(x + i, y + i));
