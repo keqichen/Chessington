@@ -10,13 +10,11 @@ export default class Rook extends Piece {
         super(player);
     }
 
-    checkForPiece(board,row,col) {
+    checkForPiece (board,row,col){
         if (board.getPiece(Square.at(row,col)) === undefined) {
-            return false
-        } else {
-            return true
-        }
-
+            return false;
+        } 
+        return true;   
     }
 
     getAvailableMoves(board) {
@@ -34,27 +32,27 @@ export default class Rook extends Piece {
         //moving forward
         for (let i = location.row + 1; i < 8; i++) {
             moves.push(Square.at(i, location.col));
-            if (this.checkForPiece(board,i, location.col)) {
+            if (this.checkForPiece(board, i, location.col)) {
                 break;
             }
         }
         //moving backward
         for (let i = location.row - 1; i >= 0; i--) {
             moves.push(Square.at(i, location.col));
-            if (this.checkForPiece(board,i,location.col)) {
+            if (this.checkForPiece(board, i, location.col)) {
                 break;
             }
         }
         //moving left
         for (let i = location.col - 1; i >= 0; i--) {
             moves.push(Square.at(location.row, i));
-            if (this.checkForPiece(board,location.row, i)) break;
+            if (this.checkForPiece(board, location.row, i)) break;
 
         }
         //moving right
         for (let i = location.col + 1; i < 8; i++) {
             moves.push(Square.at(location.row, i));
-            if (this.checkForPiece(board,location.row, i)) break;
+            if (this.checkForPiece(board, location.row, i)) break;
 
         }
 
