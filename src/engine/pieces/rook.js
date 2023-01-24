@@ -31,12 +31,12 @@ export default class Rook extends Piece {
 
         for (let i = 0; i<8; i++) {
             if (i != location.row ){
-                console.log(checkForPiece(board.getPiece(Square.at(i,location.col))))
+               // console.log(checkForPiece(board.getPiece(Square.at(i,location.col))))
             moves.push(Square.at(i, location.col));
             }
             if (i != location.col )
             {
-            console.log(checkForPiece(board.getPiece(Square.at(location.row,i))))
+            //console.log(checkForPiece(board.getPiece(Square.at(location.row,i))))
             moves.push(Square.at(location.row, i));
 
             }
