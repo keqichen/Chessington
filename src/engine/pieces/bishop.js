@@ -15,13 +15,11 @@ export default class Bishop extends Piece {
         } else {
             return true
         }
-
     }
 
 
     canPieceBeTaken(board, row, col) {
         //this should be optimised to handle cases where there is no piece inputted i.e. the square is empty
-        let opposingKing = new King(Player.WHITE)
         let pieceToCheck = board.getPiece(Square.at(row, col));
         if (pieceToCheck.player == this.player || pieceToCheck instanceof King) {
             return false };
@@ -50,7 +48,6 @@ export default class Bishop extends Piece {
         let backwardRightBlocked = false;
         let backwardLeftBlocked = false;
 
-        // we can only get 9 moves
         for (let i = 1; i < 8; i++) {
             //forward right
             if (x + i < 8 && y + i < 8 && !forwardRightBlocked) {
@@ -62,23 +59,41 @@ export default class Bishop extends Piece {
                     }
                 }
             }
-            //forward left; off-by-one error befoe: should be equal to or less than for 0 values as the '0'th index is a legit square
-            if (x + i < 8 && y - i < 8 && y - i >= 0) {
+            
+            //forward left
+            if (x + i < 8 && y - i < 8 && y - i >= 0 && !forwardLeftBlocked) {
                 moves.push(Square.at(x + i, y - i));
-                if (this.checkForPiece(board, x + i, y - i)) forwardLeftBlocked = true;
-            }
-            //backward right
-            if (x - i >= 0 && x - i < 8 && y + i < 8) {
-                moves.push(Square.at(x - i, y + i));
-                if (this.checkForPiece(board, x - i, y + i)) backwardRightBlocked = true;
-            }
-            //backward left
-            if (x - i >= 0 && y - i < 8 && y - i >= 0) {
-                moves.push(Square.at(x - i, y - i));
-                if (this.checkForPiece(board, x - i, y - i)) backwardLeftBlocked = true;
+                if (this.checkForPiece(board, x + i, y - i)) {
+                    forwardLeftBlocked = true;
+                    if (!this.canPieceBeTaken(board, x + i, y - i)) {
+                        moves.pop();
+                }
             }
         }
 
-        return moves
+            //backward right
+            if (x - i >= 0 && x - i < 8 && y + i < 8 && !backwardLeftBlocked) {
+                moves.push(Square.at(x - i, y + i));
+                if (this.checkForPiece(board, x - i, y + i)) {
+                    backwardRightBlocked = true;
+                    if (!this.canPieceBeTaken(board, x - i, y + i)) {
+                        moves.pop();
+                }
+            }
+        }
+
+            //backward left
+            if (x - i >= 0 && y - i < 8 && y - i >= 0 && !backwardRightBlocked) {
+                moves.push(Square.at(x - i, y - i));
+                if (this.checkForPiece(board, x - i, y - i)) {
+                    backwardLeftBlocked = true;
+                    if (!this.canPieceBeTaken(board, x - i, y + i)) {
+                        moves.pop();
+                }
+            }
+        }
     }
+    return moves;
+}
+
 }
