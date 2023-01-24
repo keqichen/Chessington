@@ -69,7 +69,7 @@ describe('Bishop', () => {
         moves.should.deep.include(Square.at(6, 6));
     });
 
-    it.only('cannot take the opposing king', () => {
+    it('cannot take the opposing king', () => {
         const bishop = new Bishop(Player.WHITE);
         const opposingKing = new King(Player.BLACK);
         board.setPiece(Square.at(4, 4), bishop);
