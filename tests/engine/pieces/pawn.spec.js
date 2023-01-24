@@ -103,4 +103,6 @@ describe('Pawn', () => {
         moves.should.not.deep.include(Square.at(4, 3));
     });
 
+})
+
 });
